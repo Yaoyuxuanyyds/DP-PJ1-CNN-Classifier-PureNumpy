@@ -61,7 +61,7 @@ loss_fn = nn.modules.MultiCrossEntropyLoss(model=model, max_classes=train_labs.m
 # Set the runner
 runner = nn.trainer.RunnerM(model, optimizer, nn.metric.accuracy, loss_fn, batch_size=512, scheduler=scheduler)
 
-runner.train([train_imgs, train_labs], [valid_imgs, valid_labs], num_epochs=5, log_iters=10, save_dir=r'./best_models')
+runner.train([train_imgs, train_labs], [valid_imgs, valid_labs], num_epochs=5, log_iters=10, save_dir=r'./best_models/saved_models')
 
 _, axes = plt.subplots(1, 2)
 axes.reshape(-1)
