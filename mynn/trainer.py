@@ -65,8 +65,8 @@ class RunnerM():
                 self.dev_scores.append(dev_score.get())
                 self.dev_loss.append(dev_loss.get())
 
-                # 输出每层耗时
-                self.model.print_time_stats()
+                # # 输出每层耗时
+                # self.model.print_time_stats()
 
                 if (iteration) % log_iters == 0:
                     print(f"epoch: {epoch}, iteration: {iteration}")

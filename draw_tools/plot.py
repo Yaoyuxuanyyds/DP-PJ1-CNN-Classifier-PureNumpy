@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 colors_set = {'Kraftime' : ('#E3E37D', '#968A62')}
 
-def plot(runner, axes, set=colors_set['Kraftime']):
+def plot(runner, axes, set=colors_set['Kraftime'], name=""):
     train_color = set[0]
     dev_color = set[1]
     
@@ -26,7 +26,7 @@ def plot(runner, axes, set=colors_set['Kraftime']):
     axes[1].set_xlabel("iteration")
     axes[1].legend(loc='lower right')
     # 保存图片
-    plt.savefig("figs/train_CNN.png")
+    plt.savefig(f"figs/{name}.png")
 
 def plot_compare(runner1, runner2, axes, set=colors_set['Kraftime'], name=""):
     train_color = set[0]

@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import pickle
 
 model = nn.models.Model_CNN()
-model.load_model(r'./saved_models/best_Model_CNN.pickle')
+model.load_model(r'./best_models/saved_models/best_Model_CNN.pickle')
 
 test_images_path = r'./dataset/MNIST/t10k-images-idx3-ubyte.gz'
 test_labels_path = r'./dataset/MNIST/t10k-labels-idx1-ubyte.gz'
@@ -21,5 +21,8 @@ with gzip.open(test_labels_path, 'rb') as f:
 
 test_imgs = test_imgs / test_imgs.max()
 test_imgs = cp.asarray(test_imgs)
+
+
+
 logits = model(test_imgs)
 print(nn.metric.accuracy(logits, test_labs))

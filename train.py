@@ -43,30 +43,30 @@ valid_imgs = valid_imgs / valid_imgs.max()
 
 
 # Init the model
-# model = nn.models.Model_MLP([train_imgs.shape[-1], 600, 128, 10], 'ReLU', [1e-3, 1e-3, 1e-3])
+model = nn.models.Model_MLP([train_imgs.shape[-1], 600, 128, 10], 'ReLU', [1e-3, 1e-3, 1e-3])
 # model = nn.models.Model_CNN()
-model = nn.models.Model_CNN_timing()
+# model = nn.models.Model_CNN_timing()
 
 # Choose the optimizer
-optimizer = nn.optimizer.SGD(init_lr=0.00001, model=model)
+optimizer = nn.optimizer.SGD(init_lr=0.01, model=model)
 # optimizer = nn.optimizer.MomentGD(init_lr=0.00001, model=model)
 
 # Choose the scheduler
 # scheduler = nn.lr_scheduler.MultiStepLR(optimizer=optimizer, milestones=[800, 2400, 4000], gamma=0.5)
-scheduler = nn.lr_scheduler.StepLR(optimizer=optimizer, step_size=100, gamma=0.9, warmup_epoch=100, warmup_lr=1e-6)
+scheduler = nn.lr_scheduler.StepLR(optimizer=optimizer, step_size=100, gamma=0.9, warmup_epoch=100, warmup_lr=1e-5)
 # scheduler = nn.lr_scheduler.ExponentialLR(optimizer=optimizer, gamma=0.9)
 
 # Choose the loss function
 loss_fn = nn.modules.MultiCrossEntropyLoss(model=model, max_classes=train_labs.max()+1)
 # Set the runner
-runner = nn.trainer.RunnerM(model, optimizer, nn.metric.accuracy, loss_fn, batch_size=512, scheduler=scheduler)
+runner = nn.trainer.RunnerM(model, optimizer, nn.metric.accuracy, loss_fn, batch_size=256, scheduler=scheduler)
 
-runner.train([train_imgs, train_labs], [valid_imgs, valid_labs], num_epochs=5, log_iters=10, save_dir=r'./best_models/saved_models')
+runner.train([train_imgs, train_labs], [valid_imgs, valid_labs], num_epochs=6, log_iters=10, save_dir=r'./best_models/saved_models')
 
 _, axes = plt.subplots(1, 2)
 axes.reshape(-1)
 _.set_tight_layout(1)
-plot(runner, axes)
+plot(runner, axes, name="train_MLP")
 plt.show()
  
 # # 数据增强
